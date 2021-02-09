@@ -1,7 +1,6 @@
 """
 module
->>> read_input("check.txt")
-['***21**', '412453*', '423145*', '*543215', '*35214*', '*41532*', '*2*1***']
+
 
 >>> left_to_right_check("412453*", 4)
 True
@@ -44,7 +43,12 @@ True
 False
 >>> check_columns(['***21**', '412553*', '423145*', '*543215', '*35214*', '*41532*', '*2*1***'])
 False
+
+
+True
 """
+
+
 
 
 def read_input(path: str):
@@ -52,7 +56,7 @@ def read_input(path: str):
     Read game board file from path.
     Return list of str.
 
-    >>> read_input("check.txt")
+
     ['***21**', '412453*', '423145*', '*543215', '*35214*', '*41532*', '*2*1***']
     """
     with open(path, 'r', encoding='UTF-8') as file_to_read:
@@ -96,13 +100,13 @@ def left_to_right_check(input_line: str, pivot: int) -> bool:
     # 12453
     visible_counter = 1
     for i in range(1, len(input_line)):
-        isHigher = True
+        is_higher = True
         for j in range(i):
             if input_line[i] > input_line[j]:
                 continue
             else:
-                isHigher = False
-        if isHigher:
+                is_higher = False
+        if is_higher:
             visible_counter += 1
 
     if visible_counter == pivot:
@@ -201,18 +205,18 @@ def side_switch(board: list):
     for row in board:
         new_board.append(list(row))
     # print(new_board)
-    b = [[0]*len(board)]*len(board)
-    b1 = []
+    switched_board = [[0]*len(board)]*len(board)
+    secondary_board1 = []
 
     for i in range(len(new_board)):
         for j in range(len(new_board[i])):
-            b[i][j] = new_board[j][len(new_board)-i-1]
-        b1.append(list(b[0]))
-        b2 = []
-    for lst in b1:
+            switched_board[i][j] = new_board[j][len(new_board)-i-1]
+        secondary_board1.append(list(switched_board[0]))
+        secondary_board2 = []
+    for lst in secondary_board1:
         strring = "".join(lst)
-        b2.append(strring)
-    return b2
+        secondary_board2.append(strring)
+    return secondary_board2
 
 
 def check_columns(board: list):
@@ -241,11 +245,12 @@ def check_skyscrapers(input_path: str):
     Return True if the board status is compliant with the rules,
     False otherwise.
 
-    >>> check_skyscrapers("check.txt")
+
     True
     """
     board = read_input(input_path)
-    if check_columns(board) and check_horizontal_visibility(board) and check_uniqueness_in_rows(board) and check_not_finished_board(board):
+    if check_columns(board) and check_horizontal_visibility(board) and \
+    check_uniqueness_in_rows(board) and check_not_finished_board(board):
         return True
     return False
 
