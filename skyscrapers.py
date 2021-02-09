@@ -1,4 +1,5 @@
 """
+module
 >>> read_input("check.txt")
 ['***21**', '412453*', '423145*', '*543215', '*35214*', '*41532*', '*2*1***']
 
@@ -243,7 +244,10 @@ def check_skyscrapers(input_path: str):
     >>> check_skyscrapers("check.txt")
     True
     """
-    return input_path
+    board = read_input(input_path)
+    if check_columns(board) and check_horizontal_visibility(board) and check_uniqueness_in_rows(board) and check_not_finished_board(board):
+        return True
+    return False
 
 
 if __name__ == "__main__":
